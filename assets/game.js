@@ -1,45 +1,65 @@
 $(document).ready(function() {
 
-//Define global variables. 
-var computerGeneratedNumber = 0;
-var gemstoneValue = 0;
-var counter = 0;
-var userWins = 0;
-var userLosses = 0;
+    //Set Global Varaiables
+    var targetNumber = "";
+    var wins = 0;
+    var losses = 0;
+    var counter = 0;
+    var images = ["./assets/images/GemstoneOne.JPG", "./assets/images/GemstoneTwo.JPG", "./assets/images/GemstoneThree.JPG", "./assets/images/GemstoneFour.JPG"];
 
-//Function for computer to select random number between 19-120
-computerGeneratedNumber = Math.floor(Math.random() * 102) + 19;
-console.log(computerGeneratedNumber);
-$(".matchTargetNumber").append("Target Number to Match: " + computerGeneratedNumber);
+    //Function for random Target Number between 19-120
+	function randomTargetNumber () {
+        targetNumber = Math.floor(Math.random() * 102) + 19;
+	}
 
-//Function(s) for selecting random number for crystals 1-12 when clicked on.
-//Make crystals on click events
-$(".crystalImages").on("click", function() {
+    //Function to add cyrstal images with randomly generated number between 1-12.
+	function resetCrystals () {
+		for (var i = 0; i < images.length; i++) {
+			var crystal = $("<img>");
+			crystal.addClass("crystal");
+			crystal.attr("src", images[i]);
+			crystal.attr("value", (Math.floor(Math.random() * 12) + 1));
+            $(".crystalImages").append(crystal);
+        }
+	}
 
-    //Assign random number to crystals
-    gemstoneValue = Math.floor(Math.random() * 12) + 1;
-    console.log(gemstoneValue);
+    //Function(s) to Reset when user has won or lost.
+	function resetHTML () {
+		$("#targetNumberToMatch").text(targetNumber);
+		$("#userScore").empty();
+		$(".resultsPanel").empty();
+		$(".crystalImages").empty();
+	}
 
-    //Add user's total value for individual clicks to displayUserNumber 
-    $("#gemstone1", "#gemstone2", "#gemstone3", "#gemstone4").append(gemstoneValue);
-    counter += gemstoneValue;
+	function totalReset () {
+		randomTargetNumber ();
+		counter = 0;
+		resetHTML ();
+		resetCrystals ();
+	}
 
-    //Display to displayUserNumber div.
-    $(".displayUserNumber").append(counter);
+	// Inital Page Set Up
+	randomTargetNumber();
+	resetHTML ();
+	resetCrystals ();
 
-    if (counter === computerGeneratedNumber) {
-        $(".resultsPanel").append("You Won!");
-    } else if (counter > computerGeneratedNumber) {
-        $(".resultsPanel").append("You Lost!");
-    };
+    // Click Functions
+	function crystalClick () {
+		counter += parseInt($(this).attr("value"));
+		$("#userScore").html(counter);
+		if (counter === targetNumber) {
+            wins++;
+            $("#displayUserWins").text(wins);
+            $(".resultsPanel").append("You win!")
+            totalReset();
+		}
+		else if (counter > targetNumber) {
+            losses++;
+            $("#displayUserLosses").text(losses);
+            $(".resultsPanel").append("You lost!")
+			totalReset();
+		};
+	};
+
+	$(document).on("click", ".crystal", crystalClick);
 })
-
-
-
-//
-//if else statement to check if user value equals computer value or is greater than
-//if player value = computer value user wins go up by one and game resets. 
-//if player value > computer value loss goes up and game resets. 
-
-});
-

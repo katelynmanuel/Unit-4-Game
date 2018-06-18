@@ -1,3 +1,11 @@
-.crystalImages {
-    margin-right: 20px;
+body {
+    background: url("images/what-the-hex.png");
+}
+
+.container {
+    margin-top: 20px;
+    background-color: white;
+    width: 70%;
+    padding: 20px;
+    margin-bottom: 20px;
 }
