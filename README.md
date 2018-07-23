@@ -5,6 +5,10 @@ Assignment Four: Crystals Collector Game.
 
 In this game, the user is shown a randomly generated target number they should match in order to win the game. When the user arrives on the page, they'll see directions and the target number to match. When they click on a crystal, the randomly generated number attached to that specific crystal will add to the score so the user can track their score the closer they get to meeting the target number. 
 
+### Deployed Project
+
+https://katelynmanuel.github.io/Unit-4-Game/
+
 ### Step One
 
 In the first step, we set our global variables for Target Number, Wins, Losses, Counter, and Images as we'll be assigning these their image attributes when their random number is generated in Step Two. 
